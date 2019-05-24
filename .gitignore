@@ -1,0 +1,6 @@
+.env
+vendor
+.DS_Store
+.phpunit.result.cache
+.idea
+data.sqlite3

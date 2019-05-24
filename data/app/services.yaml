@@ -1,0 +1,9 @@
+services:
+  article_service:
+    class: App\ArticleService
+    arguments: ['@orm_service']
+  author_service:
+    class: App\AuthorService
+    arguments: ['@orm_service']
+  orm_service:
+    class: App\OrmService

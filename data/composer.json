@@ -1,0 +1,20 @@
+{
+    "name": "socialnerds/unittest",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app"
+        }
+    },
+    "require": {
+        "phpunit/phpunit": "^7.5",
+        "symfony/dependency-injection": "^4.2",
+        "symfony/config": "^4.2",
+        "symfony/yaml": "^4.2",
+        "symfony/finder": "^4.2",
+        "morris/lessql": "^0.4.1",
+        "ext-pdo": "*"
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "^4.2"
+    }
+}
