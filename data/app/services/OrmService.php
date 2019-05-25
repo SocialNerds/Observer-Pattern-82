@@ -15,10 +15,7 @@ class OrmService
      */
     public function __construct()
     {
-        $this->data = [
-            'articles' => [],
-            'authors' => [],
-        ];
+        $this->data = [];
     }
 
     /**

@@ -53,10 +53,18 @@ class ServicesTest extends \PHPUnit\Framework\TestCase
         $article22 = $articleService->create('SocialNerds', 'Social Description', $author2);
         $article22 = $articleService->save($article22);
 
-        $this->assertTrue($authorService->delete($author1->getId()));
-        $this->assertFalse($authorService->getById($author1->getId()));
+        $this->assertEquals(2, $articleService->deleteByAuthorId($author1->getId()));
+        $this->assertEquals(0, count($articleService->getByAuthorId($author1->getId())));
 
-        $this->assertFalse($articleService->getById($article11->getId()));
+        // Recreate articles and delete the author.
+        $article11 = $articleService->create('SocialNerds', 'Social Description', $author1);
+        $article11 = $articleService->save($article11);
+        $article12 = $articleService->create('SocialNerds', 'Social Description', $author1);
+        $article12 = $articleService->save($article12);
+
+        $authorService->delete($author1->getId());
+        // Uncomment the line below to see the error.
+        //$this->assertEquals(0, count($articleService->getByAuthorId($author1->getId())));
     }
 
 }

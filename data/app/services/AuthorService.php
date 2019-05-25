@@ -7,6 +7,11 @@ use App\Models\Author;
 class AuthorService
 {
 
+    /*
+     * Type.
+     */
+    const TYPE = 'author';
+
     /**
      * Service that connects to DB.
      *
@@ -45,7 +50,7 @@ class AuthorService
      */
     public function save(Author $author): Author
     {
-        return $this->unserialize($this->ormService->save('author', $this->serialize($author)));
+        return $this->unserialize($this->ormService->save(self::TYPE, $this->serialize($author)));
     }
 
     /**
@@ -84,7 +89,7 @@ class AuthorService
      */
     public function getById(int $id)
     {
-        $array = $this->ormService->get('author', $id);
+        $array = $this->ormService->get(self::TYPE, $id);
         if (count($array) === 0) {
             return false;
         }
@@ -101,8 +106,7 @@ class AuthorService
      */
     public function delete(int $id): bool
     {
-        return $this->ormService->delete('author', $id);
+        return $this->ormService->delete(self::TYPE, $id);
     }
-
 
 }

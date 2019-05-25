@@ -8,6 +8,11 @@ use App\Models\Author;
 class ArticleService
 {
 
+    /*
+     * Type.
+     */
+    const TYPE = 'article';
+
     /**
      * Service that connects to DB.
      *
@@ -57,7 +62,7 @@ class ArticleService
      */
     public function save(Article $article): Article
     {
-        return $this->unserialize($this->ormService->save('article', $this->serialize($article)));
+        return $this->unserialize($this->ormService->save(self::TYPE, $this->serialize($article)));
     }
 
     /**
@@ -69,12 +74,48 @@ class ArticleService
      */
     public function getById(int $id)
     {
-        $array = $this->ormService->get('article', $id);
+        $array = $this->ormService->get(self::TYPE, $id);
         if (count($array) === 0) {
             return false;
         }
 
         return $this->unserialize($array);
+    }
+
+    /**
+     * Delete all articles of author.
+     *
+     * @param int $authorId Author ID.
+     *
+     * @return int The number of deleted articles.
+     */
+    public function deleteByAuthorId(int $authorId): int
+    {
+        $articlesArray = $this->getByAuthorId($authorId);
+        foreach ($articlesArray as $article) {
+            $this->ormService->delete(self::TYPE, $article->getId());
+        }
+
+        return count($articlesArray);
+    }
+
+    /**
+     * Get all articles of author.
+     *
+     * @param int $authorId Author ID.
+     *
+     * @return array Array of articles.
+     */
+    public function getByAuthorId(int $authorId): array
+    {
+        $articlesDataArray = $this->ormService->search(self::TYPE, ['author' => $authorId]);
+
+        $articlesArray = [];
+        foreach ($articlesDataArray as $articleDataItem) {
+            $articlesArray[] = $this->unserialize($articleDataItem);
+        }
+
+        return $articlesArray;
     }
 
     /**
@@ -120,6 +161,6 @@ class ArticleService
      */
     public function delete(int $id): bool
     {
-        return $this->ormService->delete('article', $id);
+        return $this->ormService->delete(self::TYPE, $id);
     }
 }
