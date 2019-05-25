@@ -14,7 +14,9 @@ class AuthorServiceTest extends \PHPUnit\Framework\TestCase
         $ormService->method('delete')
             ->willReturn(true);
 
-        $authorService = new \App\Services\AuthorService($ormService);
+        $dispatcher = $this->createMock(\Symfony\Component\EventDispatcher\EventDispatcher::class);
+
+        $authorService = new \App\Services\AuthorService($ormService, $dispatcher);
         $author = $authorService->create($name);
         $author = $authorService->save($author);
         $this->assertEquals($id, $author->getId());

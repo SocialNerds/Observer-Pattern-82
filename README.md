@@ -1,6 +1,7 @@
 # Observer Pattern Example
 
-An example of the observer design pattern using PHP.
+An example of the observer design pattern using PHP. The same principles apply
+to almost any other programming language.
 
 # Check the full explanation video (GR)
 <!-- [![Unit Testing, Γιατί το Κάνουμε; #81, live](https://img.youtube.com/vi/DTdYndNp8vw/0.jpg)](https://youtu.be/DTdYndNp8vw) -->

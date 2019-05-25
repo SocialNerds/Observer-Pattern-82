@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Events\AuthorDeletedEvent;
 use App\Models\Article;
 use App\Models\Author;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class ArticleService
 {
@@ -32,11 +34,15 @@ class ArticleService
      *
      * @param OrmService $ormService Service that connects to DB.
      * @param AuthorService $authorService Author service.
+     * @param EventDispatcher $dispatcher Event dispatcher.
      */
-    public function __construct(OrmService $ormService, AuthorService $authorService)
+    public function __construct(OrmService $ormService, AuthorService $authorService, EventDispatcher $dispatcher)
     {
         $this->ormService = $ormService;
         $this->authorService = $authorService;
+        $this->dispatcher = $dispatcher;
+
+        $this->dispatcher->addListener('author.deleted', [$this, 'authorDeleted']);
     }
 
     /**
@@ -97,6 +103,14 @@ class ArticleService
         }
 
         return count($articlesArray);
+    }
+
+    /**
+     * @param AuthorDeletedEvent $event
+     */
+    public function authorDeleted(AuthorDeletedEvent $event)
+    {
+        $this->deleteByAuthorId($event->getAuthorId());
     }
 
     /**

@@ -22,7 +22,9 @@ class ArticleServiceTest extends \PHPUnit\Framework\TestCase
         $authorService->method('getById')
             ->willReturn($author);
 
-        $articleService = new \App\Services\ArticleService($ormService, $authorService);
+        $dispatcher = $this->createMock(\Symfony\Component\EventDispatcher\EventDispatcher::class);
+
+        $articleService = new \App\Services\ArticleService($ormService, $authorService, $dispatcher);
 
         $article = $articleService->create($title, $body, $author);
         $article = $articleService->save($article);

@@ -63,8 +63,8 @@ class ServicesTest extends \PHPUnit\Framework\TestCase
         $article12 = $articleService->save($article12);
 
         $authorService->delete($author1->getId());
-        // Uncomment the line below to see the error.
-        //$this->assertEquals(0, count($articleService->getByAuthorId($author1->getId())));
+        $this->assertEquals(0, count($articleService->getByAuthorId($author1->getId())));
+        $this->assertEquals(2, count($articleService->getByAuthorId($author2->getId())));
     }
 
 }

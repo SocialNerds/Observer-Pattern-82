@@ -2,11 +2,12 @@
 
 namespace App\Services;
 
+use App\Events\AuthorDeletedEvent;
 use App\Models\Author;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class AuthorService
 {
-
     /*
      * Type.
      */
@@ -20,13 +21,22 @@ class AuthorService
     protected $ormService;
 
     /**
+     * Event dispatcher.
+     *
+     * @var EventDispatcher
+     */
+    protected $dispatcher;
+
+    /**
      * AuthorService constructor.
      *
      * @param OrmService $ormService Service that connects to DB.
+     * @param EventDispatcher $dispatcher Event dispatcher.
      */
-    public function __construct(OrmService $ormService)
+    public function __construct(OrmService $ormService, EventDispatcher $dispatcher)
     {
         $this->ormService = $ormService;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -106,6 +116,9 @@ class AuthorService
      */
     public function delete(int $id): bool
     {
+        $event = new AuthorDeletedEvent($id);
+        $this->dispatcher->dispatch(AuthorDeletedEvent::NAME, $event);
+
         return $this->ormService->delete(self::TYPE, $id);
     }
 

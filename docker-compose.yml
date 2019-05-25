@@ -10,7 +10,7 @@ services:
     container_name: app_fpm
     restart: always
     volumes:
-      - ./data:/home/serveruser/data:delegated
+      - ./data:/home/serveruser/data
     networks:
       app_net:
 networks:
