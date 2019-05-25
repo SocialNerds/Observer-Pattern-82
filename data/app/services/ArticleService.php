@@ -61,6 +61,23 @@ class ArticleService
     }
 
     /**
+     * Get article by id.
+     *
+     * @param int $id Article id.
+     *
+     * @return Article|false Author.
+     */
+    public function getById(int $id)
+    {
+        $array = $this->ormService->get('article', $id);
+        if (count($array) === 0) {
+            return false;
+        }
+
+        return $this->unserialize($array);
+    }
+
+    /**
      * Unserialize an array of values to Article object.
      *
      * @param array $values Array of values.
@@ -73,7 +90,7 @@ class ArticleService
             $values['id'],
             $values['title'],
             $values['body'],
-            $this->authorService->getAuthorById($values['author'])
+            $this->authorService->getById($values['author'])
         );
     }
 

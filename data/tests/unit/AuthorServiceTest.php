@@ -20,7 +20,7 @@ class AuthorServiceTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($id, $author->getId());
         $this->assertEquals($name, $author->getName());
 
-        $this->assertEquals($author, $authorService->getAuthorById($id));
+        $this->assertEquals($author, $authorService->getById($id));
         $this->assertEquals(true, $authorService->delete($id));
     }
 

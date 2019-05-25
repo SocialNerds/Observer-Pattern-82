@@ -19,7 +19,7 @@ class ArticleServiceTest extends \PHPUnit\Framework\TestCase
             ->willReturn(true);
 
         $authorService = $this->createMock(\App\Services\AuthorService::class);
-        $authorService->method('getAuthorById')
+        $authorService->method('getById')
             ->willReturn($author);
 
         $articleService = new \App\Services\ArticleService($ormService, $authorService);

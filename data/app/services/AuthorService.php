@@ -82,14 +82,14 @@ class AuthorService
      *
      * @return Author|false Author.
      */
-    public function getAuthorById(int $id)
+    public function getById(int $id)
     {
-        $authorArray = $this->ormService->get('author', $id);
-        if (!$authorArray) {
-            return $authorArray;
+        $array = $this->ormService->get('author', $id);
+        if (count($array) === 0) {
+            return false;
         }
 
-        return $this->unserialize($authorArray);
+        return $this->unserialize($array);
     }
 
     /**
