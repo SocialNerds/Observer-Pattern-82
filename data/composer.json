@@ -2,7 +2,8 @@
     "name": "socialnerds/unittest",
     "autoload": {
         "psr-4": {
-            "App\\": "app"
+            "App\\": "app",
+            "AppContainer\\": "app_container"
         }
     },
     "require": {

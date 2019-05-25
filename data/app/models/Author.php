@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 class Author
 {
@@ -21,10 +21,12 @@ class Author
     /**
      * Author constructor.
      *
+     * @param int $id Author ID.
      * @param string $name Author name.
      */
-    public function __construct(string $name)
+    public function __construct(int $id, string $name)
     {
+        $this->id = $id;
         $this->name = $name;
     }
 
@@ -47,7 +49,6 @@ class Author
     {
         return $this->name;
     }
-
 
 
 }

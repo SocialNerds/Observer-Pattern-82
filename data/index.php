@@ -1,8 +1,8 @@
 <?php
 
 require __DIR__.'/vendor/autoload.php';
-require __DIR__.'/container.php';
 
-$authorService = $containerBuilder->get('author_service');
+use \AppContainer\ContainerFactory;
 
-//print($authorService->getAuthorById(1)->getName());
+$myContainer = ContainerFactory::getContainer();
+$authorService = $myContainer->get('author_service');
